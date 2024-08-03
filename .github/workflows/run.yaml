@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:{}
+
+jobs:
+  run:
+    runs-on: ${{ matrix.os.runs-on }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: 
+          - runs-on: windows-latest
+            arch: win-x64
+          - runs-on: macos-latest
+            arch: osx-x64
+          - runs-on: ubuntu-latest
+            arch: linux-x64
+          - runs-on: windows-latest
+            arch: win-arm64
+          - runs-on: macos-latest
+            arch: osx-arm64
+          - runs-on: ubuntu-latest
+            arch: linux-arm64
+    
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: run benchmarks
+      run: dotnet run --project MlBenchmark -c release
