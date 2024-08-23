@@ -41,6 +41,12 @@ namespace MlBenchmark{
             var yaml = File.ReadAllText("data/dictionary.yaml");
             return yamlDeserializer.Deserialize<G2pDictionaryData>(yaml);
         }
+
+        [Benchmark]
+        public G2pDictionaryData LoadJsonDictionaryAsYaml() {
+            var yaml = File.ReadAllText("data/dictionary.json");
+            return yamlDeserializer.Deserialize<G2pDictionaryData>(yaml);
+        }
     }
 
     public class Program{
