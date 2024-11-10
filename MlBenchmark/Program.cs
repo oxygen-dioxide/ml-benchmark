@@ -3,6 +3,7 @@ using System.IO;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 using YamlDotNet.Serialization;
 
 namespace MlBenchmark{
@@ -46,6 +47,16 @@ namespace MlBenchmark{
         public G2pDictionaryData LoadJsonDictionaryAsYaml() {
             var yaml = File.ReadAllText("data/dictionary.json");
             return yamlDeserializer.Deserialize<G2pDictionaryData>(yaml);
+        }
+
+        [Benchmark]
+        public G2pDictionaryData LoadBsonDictionary() {
+            using (var fileStream = File.OpenRead("data/dictionary.bson"))
+            using (var reader = new BsonReader(fileStream))
+            {
+                var serializer = new JsonSerializer();
+                return serializer.Deserialize<G2pDictionaryData>(reader);
+            }
         }
     }
 

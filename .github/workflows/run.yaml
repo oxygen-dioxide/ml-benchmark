@@ -15,13 +15,7 @@ jobs:
             arch: osx-x64
           - runs-on: ubuntu-latest
             arch: linux-x64
-          - runs-on: windows-latest
-            arch: win-arm64
-          - runs-on: macos-latest
-            arch: osx-arm64
-          - runs-on: ubuntu-latest
-            arch: linux-arm64
-    
+
     steps:
     - uses: actions/checkout@v1
 
